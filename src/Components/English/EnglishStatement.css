@@ -1,0 +1,14 @@
+.englishStatement {
+    color: #393232;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.englishStatement__item {
+    font-size: xx-large;
+    font-style: italic;
+    text-align: left;
+}
+
+.cancelButton {
+    text-align: left;
+}
