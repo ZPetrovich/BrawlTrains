@@ -1,11 +1,13 @@
 export const STATEMENTS_ARRAY = [
-    {
-        positive: 'I like cats.',
-        negative: 'I [do not] like cats.',
-        question: '[Do] you like cats?',
-        answerYes: 'Yes, [I do].',
-        answerNo: 'No, [I do not].'
-    },
+    // Bob and you - you (вы)
+    // My brother and I - we (мы)
+    // {
+    //     positive: 'I like cats.',
+    //     negative: 'I [do not] like cats.',
+    //     question: '[Do] you like cats?',
+    //     answerYes: 'Yes, [I do].',
+    //     answerNo: 'No, [I do not].'
+    // },
     {
         positive: 'Mary likes dogs.',
         negative: 'Mary [does not] like dogs.',
@@ -49,9 +51,9 @@ export const STATEMENTS_ARRAY = [
         answerNo: 'No, [I do not]'
     },
     {
-        positive: 'We run in the park on sundays.',
-        negative: 'We [do not] run in the park on sundays.',
-        question: '[Do] we run in the park on sundays?',
+        positive: 'We run in the park on Sundays.',
+        negative: 'We [do not] run in the park on Sundays.',
+        question: '[Do] we run in the park on Sundays?',
         answerYes: 'Yes, [we do].',
         answerNo: 'No, [we do not].'
     },
@@ -82,5 +84,117 @@ export const STATEMENTS_ARRAY = [
         question: '[Does] his brother run in the yard?',
         answerYes: 'Yes, [he does]',
         answerNo: 'No, [he does not].'
-    }
+    },
+    {
+        positive: 'The monkeys eat bananas.',
+        negative: 'The monkeys [do not] eat bananas.',
+        question: '[Do] monkeys eat bananas?',
+        answerYes: 'Yes, [they do].',
+        answerNo: 'No, [they do not].'
+    },
+    {
+        positive: 'My mum cooks salad.',
+        negative: 'My mum [does not] cooks salad.',
+        question: '[Does] my mum cook salad?',
+        answerYes: 'Yes, [she does].',
+        answerNo: 'No, [she does not].'
+    },
+    {
+        positive: 'My granny makes a cake.',
+        negative: 'My granny [does not] make a cake.',
+        question: '[Does] my granny make a cake?',
+        answerYes: 'Yes, [she does].',
+        answerNo: 'No, [she does not].'
+    },
+    {
+        positive: 'He plays football on Sundays.',
+        negative: 'He [does not] play football on Sundays.',
+        question: '[Does] he play football on Sundays?',
+        answerYes: 'Yes, [he does].',
+        answerNo: 'No, [he does not].'
+    },
+    {
+        positive: 'The cat drinks milk.',
+        negative: 'The cat [does not] drink milk.',
+        question: '[Does] cat drink milk?',
+        answerYes: 'Yes, [it does].',
+        answerNo: 'No, [it does not].'
+    },
+    {
+        positive: 'Nick and Mike play tennis.',
+        negative: 'Nick and Mike [do not] play tennis.',
+        question: '[Do] Nick and Mike play tennis?',
+        answerYes: 'Yes, [they do]',
+        answerNo: 'No, [they do not].'
+    },
+    // {
+    //     positive: 'Jane drinks coffee.'
+    // },
+    // {
+    //     positive: 'Helen dances every day.'
+    // },
+    // {
+    //     positive: 'The fox likes fish.'
+    // },
+    // {
+    //     positive: 'My sister and I eat sushi.'
+    // },
+    // {
+    //     positive: 'Jack and Max play chess'
+    // },
+    // {
+    //     positive: 'My friend and I write an English test.'
+    // },
+    // {
+    //     positive: 'My kitten likes to sleep.'
+    // },
+    // {
+    //     positive: 'His uncle drives a taxi.'
+    // },
+    // {
+    //     positive: 'Kate and Ben work every day.'
+    // },
+    // {
+    //     positive: 'Max and I like music.'
+    // },
+    // {
+    //     positive: 'The children speak English well.'
+    // },
+    // {
+    //     positive: 'His granny likes to cook.'
+    // },
+    // {
+    //     positive: 'My dog likes to bark.'
+    // },
+    // {
+    //     positive: 'The cats like milk.'
+    // },
+    // {
+    //     positive: 'Our granny cooks every day.'
+    // },
+    // {
+    //     positive: 'My father works in the garden every spring.'
+    // },
+    // {
+    //     positive: 'My mum and I walk in the park every day.'
+    // },
+    // {
+    //     positive: 'I swim in the sea every summer.'
+    // },
+    // {
+    //     positive: 'Bob swims in the sea every summer.'
+    // },
+    // {
+    //     positive: 'His friends play chess in the evening.'
+    // },
+    // {
+    //     positive: 'Billy likes bananas.'
+    // },
+    // {
+    //     positive: 'Sam and I play in the yard every day.',
+    // },
+    // {
+    //     positive: 'The girls like to draw flowers.',
+    //
+    // },
 ];

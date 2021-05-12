@@ -1,5 +1,5 @@
 import Input from "@material-ui/core/Input";
-import React from "react";
+import React, {useRef} from "react";
 import {all, create} from "mathjs";
 import {makeStyles} from "@material-ui/core/styles";
 import FunctionalButtons from "../Common/FunctionalButtons";
@@ -29,6 +29,8 @@ const DEFAULT_EXPRESSIONS = [
     '19 + 37',
     '27 + 72',
     '41 - 18',
+    '71 - 39',
+    '89 - 88',
     '99 - 68',
     '24 - 19',
     '77 - 39',
@@ -36,6 +38,13 @@ const DEFAULT_EXPRESSIONS = [
     '21 + 79',
     '37 - 9'
 ];
+
+const useFocus = () => {
+    const htmlElRef = useRef(null)
+    const setFocus = () => {htmlElRef.current &&  htmlElRef.current.focus()}
+
+    return [ htmlElRef, setFocus ]
+}
 
 function Formula(props) {
     const classes = useStyles();
@@ -74,6 +83,8 @@ function Formula(props) {
         }
     };
 
+    const [inputRef, setInputFocus] = useFocus();
+
     function checkHandler() {
         const res = math.evaluate(expressions[expressionIdx]);
         console.log(res);
@@ -94,6 +105,7 @@ function Formula(props) {
             <div className='formula-item'>
                 <span className={classes.root}>{expressions[expressionIdx]}<span>&nbsp;=&nbsp;</span>
                     <Input
+                        // inputRef={inputRef}
                         className={classes.root}
                         value={answerValue}
                         margin="dense"

@@ -10,6 +10,7 @@ const CANCEL_BUTTON_STYLE = makeStyles({
 
 const FUNCTIONAL_BUTTON_STYLE = makeStyles({
     root: {
+        width: "30%"
         // float: "left"
     },
 });

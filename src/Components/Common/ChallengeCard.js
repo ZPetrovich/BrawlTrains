@@ -75,17 +75,25 @@ const ChallengeCard = (props) => {
 
     // return <h2>It is OK</h2>
     if (props.type === ENGLISH) {
-        return <EnglishStatement onBack={props.onBack}
-                                 onNext={nextButtonCommonHandler}
-                                 onTryAgainHandler={onTryAgainHandler}
-                                 onCalculateResult={calculateResult}/>
+        return (
+            <div>
+                <h3>Question {cardNumber} / {totalCards}</h3>
+                <EnglishStatement onBack={props.onBack}
+                                  onNext={nextButtonCommonHandler}
+                                  onTryAgainHandler={onTryAgainHandler}
+                                  onCalculateResult={calculateResult}/>
+            </div>);
     }//  if(props.type === MATH)
 
     // setTotalCards(TOTAL_MATH_CARDS);
-    return <Formula onBack={props.onBack}
-                    onNext={nextButtonCommonHandler}
-                    onTryAgainHandler={onTryAgainHandler}
-                    onCalculateResult={calculateResult}/>
+    return (
+        <div>
+            <h3>Question {cardNumber} / {totalCards}</h3>
+            <Formula onBack={props.onBack}
+                     onNext={nextButtonCommonHandler}
+                     onTryAgainHandler={onTryAgainHandler}
+                     onCalculateResult={calculateResult}/>
+        </div>);
 }
 
 export default ChallengeCard;
