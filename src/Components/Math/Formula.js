@@ -49,7 +49,7 @@ const useFocus = () => {
 function Formula(props) {
     const classes = useStyles();
 
-    const [answerValue, setAnswerValue] = React.useState(0);
+    const [answerValue, setAnswerValue] = React.useState('');
 
     const [expressionIdx, setExpressionIdx] = React.useState(0);
 
@@ -70,7 +70,7 @@ function Formula(props) {
         console.log('expression = ', expression);
 
         props.onNext();
-        setAnswerValue(0);
+        setAnswerValue('');
 
         setNextButtonDisabled(true);
     }

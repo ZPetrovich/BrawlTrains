@@ -1,0 +1,14 @@
+.button Button {
+    margin: 1rem auto;
+    width: 20%;
+}
+
+@media (min-width: 768px) {
+    .button .func Button {
+        width: 25%;
+    }
+
+    .button .cancel Button {
+        width: auto;
+    }
+}
