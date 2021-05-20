@@ -10,7 +10,7 @@ export const NEGATIVE_ANSWERS = [
 function NegativeStatement(props) {
     return (
         <div>
-            (-) {props.text.substring(0, props.text.indexOf('['))}
+            <b>(-)</b> {props.text.substring(0, props.text.indexOf('['))}
             <Select className={props.style}
                     value={props.value}
                     onChange={(event) => props.onChange(event.target.value)}

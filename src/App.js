@@ -5,8 +5,14 @@ import Button from "@material-ui/core/Button";
 import ChallengeCard from "./Components/Common/ChallengeCard";
 
 export const MAIN = 'Main';
+
 export const ENGLISH = 'English';
+export const ENGLISH_S_OR_NOT = 'EnglishSorNot';
+export const ENGLISH_4_FORMS = 'English4Forms';
+
 export const MATH = 'Math';
+export const MATH_PLUS_MINUS = 'MathPlusMinus';
+export const MATH_MUL_DIV = 'MathMulDiv';
 
 function App() {
     const [screen, setScreen] = useState(MAIN)
@@ -23,10 +29,19 @@ function App() {
         setScreen(MAIN);
     }
 
+    const onChoiceHandler = (screenParam) => {
+        console.log('onChoiceHandler', onChoiceHandler);
+        setScreen(screenParam);
+    }
+
     switch (screen) {
         case ENGLISH:
+        case ENGLISH_S_OR_NOT:
+        case ENGLISH_4_FORMS:
+        case MATH_PLUS_MINUS:
+        case MATH_MUL_DIV:
         case MATH:
-            return <div className="App"><ChallengeCard type={screen} onBack={backHandler}/></div>
+            return <div className="App"><ChallengeCard type={screen} onBack={backHandler} onChoice={onChoiceHandler}/></div>
         default:
             return (
                 <div className="App">

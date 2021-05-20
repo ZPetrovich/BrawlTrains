@@ -5,9 +5,9 @@ import AnswerNo, {NO_ASWERS} from "./AnswerNo";
 import AnswerYes, {YES_ASWERS} from "./AnswerYes";
 import NegativeStatement, {NEGATIVE_ANSWERS} from "./NegativeStatement";
 import QuestionStatement, {QUESTION_ANSWERS} from "./QuestionStatement";
-import FunctionalButtons from "../Common/FunctionalButtons";
+import FunctionalButtons from "../../Common/FunctionalButtons";
 import {STATEMENTS_ARRAY} from "./Statements";
-import {shuffle} from "../Common/Utils";
+import {shuffle} from "../../Common/Utils";
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -42,7 +42,6 @@ const EnglishStatement = (props) => {
     const dropboxStyle = DROPBOX_STYLE();
 
     const [statements, setStatements] = React.useState(shuffle(STATEMENTS_ARRAY));
-    console.log('statements' , statements);
 
     const [statementIdx, setStatementIdx] = React.useState(0);
 
@@ -138,11 +137,6 @@ const EnglishStatement = (props) => {
         setAnswerStatementNo(value);
     }
 
-    // TODO seems no need to invoke ?
-    function onTryAgainHandler() {
-        setStatements(prevStatements => shuffle(prevStatements));
-    }
-
     function nextButtonHandler() {
         console.log('Next please', statementIdx, statements.length);
         setStatementIdx(statementIdx === statements.length - 1 ? 0 : statementIdx + 1);
@@ -164,7 +158,7 @@ const EnglishStatement = (props) => {
     return (
         <div className='englishStatement'>
             <div className='englishStatement__item'>
-                <div>(+) {statements[statementIdx].positive} </div>
+                <div><b>(+)</b> {statements[statementIdx].positive} </div>
 
                 {/*<div>(-) I [do not] like cats.</div>*/}
                 <NegativeStatement
@@ -183,7 +177,7 @@ const EnglishStatement = (props) => {
 
                 {/*<div>(o) Yes, [I do]. No, [I do not].</div>*/}
                 <div>
-                    (o) <AnswerYes
+                    <b>(o)</b> <AnswerYes
                     style={answerStatementYesStyle}
                     value={answerStatementYes}
                     onClick={handleAnswerChangeYes}/>

@@ -11,7 +11,7 @@ export const QUESTION_ANSWERS = [
 
 function QuestionStatement(props) {
     return (
-        <div>(?) &nbsp;
+        <div><b>(?)</b> &nbsp;
             <Select className={props.style}
                     value={props.value}
                     onChange={(event) => props.onChange(event.target.value)}

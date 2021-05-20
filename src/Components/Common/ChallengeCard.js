@@ -1,12 +1,12 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import EnglishStatement from "../English/EnglishStatement";
 import {makeStyles} from "@material-ui/core/styles";
 import Formula from "../Math/Formula";
-import {ENGLISH, MATH} from "../../App";
-
-const TOTAL_ENGLISH_CARDS = 4;
-const TOTAL_MATH_CARDS = 12;
+import {ENGLISH, ENGLISH_4_FORMS, ENGLISH_S_OR_NOT, MATH, MATH_MUL_DIV, MATH_PLUS_MINUS} from "../../App";
+import English4Forms from "../English/EnglishForms/EnglishForm";
+import EnglishChoicer from "../English/EnglishChoicer";
+import MathChoicer from "../Math/MathChoicer";
+import EnglishSorNot from "../English/SorNot/EnglishSorNot";
 
 const SCORE_STYLE = makeStyles({
     root: {
@@ -17,7 +17,7 @@ const SCORE_STYLE = makeStyles({
 const ChallengeCard = (props) => {
     const scoreStyle = SCORE_STYLE();
 
-    const [totalCards, setTotalCards] = React.useState(props.type === ENGLISH ? TOTAL_ENGLISH_CARDS : TOTAL_MATH_CARDS);
+    const [totalCards, setTotalCards] = React.useState();
 
     const [cardNumber, setCardNumber] = React.useState(1);
 
@@ -27,10 +27,12 @@ const ChallengeCard = (props) => {
 
     const [score, setScore] = React.useState(0);
 
-    function calculateResult(score) {
-        console.log('score', score);
+    function calculateResult(scoreParam) {
         if (firstAnswer) {
-            setScore(prevScore => prevScore + score);
+            console.log('total score', score);
+            console.log('given score', scoreParam);
+
+            setScore(prevScore => prevScore + scoreParam);
             setFirstAnswer(false);
         }
     }
@@ -38,6 +40,10 @@ const ChallengeCard = (props) => {
     function onTryAgainHandler() {
         setShowResults(false);
         setScore(0);
+    }
+
+    const onTotalCardsHandler = (total) => {
+        setTotalCards(total);
     }
 
     function nextButtonCommonHandler() {
@@ -57,15 +63,17 @@ const ChallengeCard = (props) => {
         return (
             <div>
                 <h2>You result is:</h2>
-                <h1 className={scoreStyle.root}>{score}</h1>
-                <Button variant="contained" color="primary"
+                <h1 className={scoreStyle.root}>{Math.floor(score)}</h1>
+                <Button variant="contained"
+                        color="primary"
                         onClick={props.onBack}>
                     Home
                 </Button>
 
                 &nbsp;&nbsp;&nbsp;
 
-                <Button variant="contained" color="primary"
+                <Button variant="contained"
+                        color="primary"
                         onClick={onTryAgainHandler}>
                     Try again
                 </Button>
@@ -75,25 +83,51 @@ const ChallengeCard = (props) => {
 
     // return <h2>It is OK</h2>
     if (props.type === ENGLISH) {
+        return <EnglishChoicer
+            onTotalCards={onTotalCardsHandler}
+            onChoice={props.onChoice}
+            onBack={props.onBack}
+        />
+    } else if (props.type === MATH) {
+        return <MathChoicer
+            onTotalCards={onTotalCardsHandler}
+            onChoice={props.onChoice}
+            onBack={props.onBack}
+        />
+    } else if (props.type === ENGLISH_4_FORMS) {
+        return <English4Forms
+            cardNumber={cardNumber}
+            totalCards={totalCards}
+            onBack={props.onBack}
+            onNext={nextButtonCommonHandler}
+            onCalculateResult={calculateResult}
+        />
+    } else if (props.type === ENGLISH_S_OR_NOT) {
         return (
             <div>
                 <h3>Question {cardNumber} / {totalCards}</h3>
-                <EnglishStatement onBack={props.onBack}
-                                  onNext={nextButtonCommonHandler}
-                                  onTryAgainHandler={onTryAgainHandler}
-                                  onCalculateResult={calculateResult}/>
+                <EnglishSorNot
+                    onBack={props.onBack}
+                    onNext={nextButtonCommonHandler}
+                    onCalculateResult={calculateResult}/>
+            </div>
+        )
+    } else if (props.type === MATH_PLUS_MINUS) {
+        return (
+            <div>
+                <h3>Question {cardNumber} / {totalCards}</h3>
+                <Formula onBack={props.onBack}
+                         onNext={nextButtonCommonHandler}
+                         onCalculateResult={calculateResult}/>
             </div>);
-    }//  if(props.type === MATH)
+    } else if (props.type === MATH_MUL_DIV) {
+        console.log('To be implemented...');
+        return <div>To be implemented!</div>
+    } else {
+        console.log(props.type);
+        return <div>I am empty here!</div>
+    }
 
-    // setTotalCards(TOTAL_MATH_CARDS);
-    return (
-        <div>
-            <h3>Question {cardNumber} / {totalCards}</h3>
-            <Formula onBack={props.onBack}
-                     onNext={nextButtonCommonHandler}
-                     onTryAgainHandler={onTryAgainHandler}
-                     onCalculateResult={calculateResult}/>
-        </div>);
 }
 
 export default ChallengeCard;
