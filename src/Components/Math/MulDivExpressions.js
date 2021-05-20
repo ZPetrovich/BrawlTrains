@@ -8,6 +8,8 @@ import {MATH_MUL_DIV_TOTAL_CARDS} from "./MathChoicer";
 const config = {}
 const math = create(all, config)
 
+const SCORE_FACTOR = 0.5;
+
 const useStyles = makeStyles({
     root: {
         fontSize: "x-large",
@@ -20,11 +22,6 @@ const useStyles = makeStyles({
 });
 
 const EXCLUDED_MULTIPLIER = [1];
-
-const DEFAULT_EXPRESSIONS = [
-    '81 / 9',
-    '7 * 8'
-];
 
 function getRandomInt(min, max) {
     min = Math.ceil(min);
@@ -140,7 +137,7 @@ const MulDivExpressions = props => {
             setNextButtonDisabled(!isCorrect);
             score = 1;
         }
-        props.onCalculateResult(score);
+        props.onCalculateResult(score * SCORE_FACTOR);
     }
 
     return (
