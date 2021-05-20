@@ -1,12 +1,13 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import {makeStyles} from "@material-ui/core/styles";
-import Formula from "../Math/Formula";
+import PlusMinusExpressions from "../Math/PlusMinusExpressions";
 import {ENGLISH, ENGLISH_4_FORMS, ENGLISH_S_OR_NOT, MATH, MATH_MUL_DIV, MATH_PLUS_MINUS} from "../../App";
 import English4Forms from "../English/EnglishForms/EnglishForm";
 import EnglishChoicer from "../English/EnglishChoicer";
 import MathChoicer from "../Math/MathChoicer";
 import EnglishSorNot from "../English/SorNot/EnglishSorNot";
+import MulDivExpressions from "../Math/MulDivExpressions";
 
 const SCORE_STYLE = makeStyles({
     root: {
@@ -116,13 +117,18 @@ const ChallengeCard = (props) => {
         return (
             <div>
                 <h3>Question {cardNumber} / {totalCards}</h3>
-                <Formula onBack={props.onBack}
-                         onNext={nextButtonCommonHandler}
-                         onCalculateResult={calculateResult}/>
+                <PlusMinusExpressions onBack={props.onBack}
+                                      onNext={nextButtonCommonHandler}
+                                      onCalculateResult={calculateResult}/>
             </div>);
     } else if (props.type === MATH_MUL_DIV) {
-        console.log('To be implemented...');
-        return <div>To be implemented!</div>
+        return (
+            <div>
+                <h3>Question {cardNumber} / {totalCards}</h3>
+                <MulDivExpressions onBack={props.onBack}
+                                   onNext={nextButtonCommonHandler}
+                                   onCalculateResult={calculateResult}/>
+            </div>);
     } else {
         console.log(props.type);
         return <div>I am empty here!</div>

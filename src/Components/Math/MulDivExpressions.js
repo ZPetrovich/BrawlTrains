@@ -1,9 +1,9 @@
 import Input from "@material-ui/core/Input";
-import React, {useRef} from "react";
-import {all, create} from "mathjs";
-import {makeStyles} from "@material-ui/core/styles";
 import FunctionalButtons from "../Common/FunctionalButtons";
-import {shuffle} from "../Common/Utils";
+import React from "react";
+import {makeStyles} from "@material-ui/core/styles";
+import {all, create} from "mathjs";
+import {MATH_MUL_DIV_TOTAL_CARDS} from "./MathChoicer";
 
 const config = {}
 const math = create(all, config)
@@ -19,42 +19,95 @@ const useStyles = makeStyles({
     },
 });
 
+const EXCLUDED_MULTIPLIER = [1];
+
 const DEFAULT_EXPRESSIONS = [
-    '87 - 12',
-    '73 - 17',
-    '91 - 18',
-    '23 - 9',
-    '71 - 15',
-    '93 - 77',
-    '19 + 37',
-    '27 + 72',
-    '41 - 18',
-    '71 - 39',
-    '33 - 17',
-    '99 - 68',
-    '24 - 19',
-    '77 - 39',
-    '25 + 67',
-    '21 + 79',
-    '37 - 9'
+    '81 / 9',
+    '7 * 8'
 ];
 
-const useFocus = () => {
-    const htmlElRef = useRef(null)
-    const setFocus = () => {htmlElRef.current &&  htmlElRef.current.focus()}
-
-    return [ htmlElRef, setFocus ]
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
 }
 
-function Formula(props) {
+function generateMultiplier(withExclusions) {
+    let mul = getRandomInt(0, 9);
+    if (withExclusions) {
+        while (EXCLUDED_MULTIPLIER.indexOf(mul) !== -1) {
+            mul = getRandomInt(0, 9);
+        }
+    }
+    return mul;
+}
+
+function generateMulExpression() {
+    const mul1 = generateMultiplier();
+    const mul2 = generateMultiplier();
+    return {
+        mul1,
+        mul2,
+        expression: `${mul1} * ${mul2}`
+    };
+}
+
+function generateMathExpressionWithExclusions(withExclusions, expressions) {
+    let exp = generateMulExpression(withExclusions);
+    while (expressions.indexOf(exp.expression) !== -1) {
+        exp = generateMulExpression();
+    }
+    return exp;
+}
+
+function generateExpressions(expressionsCount) {
+    const half = expressionsCount / 2;
+    let expressions = [];
+
+    // mul
+    for (let i = 0; i < half; i++) {
+        const exp = generateMathExpressionWithExclusions(true, expressions);
+        console.log('mul exp', exp);
+        expressions = [...expressions, exp.expression];
+    }
+
+    // div
+    for (let i = 0; i < half; i++) {
+        let exp = generateMathExpressionWithExclusions(false, []);
+        while (exp.mul1 === 0 && exp.mul2 === 0) {
+            exp = generateMathExpressionWithExclusions(false, []);
+        }
+        console.log('generated exp', exp);
+
+        const res = math.evaluate(exp.expression);
+        let newExpression;
+        if (exp.mul2 !== 0) {
+            newExpression = `${res} / ${exp.mul2}`;
+        } else if (exp.mul1 !== 0) {
+            newExpression = `${res} / ${exp.mul1}`;
+        } else {// avoid 0 / 0
+            throw new Error('Can not 0 divide on 0!');
+        }
+
+        console.log('new div expression', newExpression);
+
+        // TODO avoid repetitions
+        expressions = [...expressions, newExpression];
+    }
+
+    return expressions;
+}
+
+const MulDivExpressions = props => {
     const classes = useStyles();
 
     const [answerValue, setAnswerValue] = React.useState('');
 
     const [expressionIdx, setExpressionIdx] = React.useState(0);
 
-    const [expressions, setExpressions] = React.useState(shuffle(DEFAULT_EXPRESSIONS));
-    console.log('expressions' , expressions);
+    const [expressions, setExpressions] = React.useState(generateExpressions(MATH_MUL_DIV_TOTAL_CARDS));
+    // const [expressions, setExpressions] = React.useState(DEFAULT_EXPRESSIONS);
+    console.log('expressions', expressions);
 
     const [nextButtonDisabled, setNextButtonDisabled] = React.useState(true);
 
@@ -74,16 +127,6 @@ function Formula(props) {
 
         setNextButtonDisabled(true);
     }
-
-    const handleBlur = () => {
-        if (answerValue < 0) {
-            setAnswerValue(0);
-        } else if (answerValue > 100) {
-            setAnswerValue(100);
-        }
-    };
-
-    const [inputRef, setInputFocus] = useFocus();
 
     function checkHandler() {
         const res = math.evaluate(expressions[expressionIdx]);
@@ -105,12 +148,10 @@ function Formula(props) {
             <div className='formula-item'>
                 <span className={classes.root}>{expressions[expressionIdx]}<span>&nbsp;=&nbsp;</span>
                     <Input
-                        // inputRef={inputRef}
                         className={classes.root}
                         value={answerValue}
                         margin="dense"
                         onChange={handleInputChange}
-                        onBlur={handleBlur}
                         inputProps={{
                             step: 1,
                             min: 0,
@@ -131,4 +172,4 @@ function Formula(props) {
     );
 }
 
-export default Formula;
+export default MulDivExpressions;
