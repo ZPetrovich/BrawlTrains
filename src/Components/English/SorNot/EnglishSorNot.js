@@ -6,6 +6,8 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import {makeStyles} from "@material-ui/core/styles";
 
+import classes from './EnglishSorNot.module.css';
+
 const SCORE_FACTOR = 0.5;
 
 export const DROPBOX_STYLE = makeStyles({
@@ -77,7 +79,8 @@ const EnglishSorNot = props => {
 
     return (
         <div className='englishStatement'>
-            <div className='englishStatement__item'>
+            <div className={classes.englishStatement}>
+            {/*<div className='englishStatement__item'>*/}
                 {statements[statementIdx].text.substring(0, statements[statementIdx].text.indexOf('['))}
                 <Select className={style}
                         value={answer}

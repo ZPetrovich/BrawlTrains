@@ -4,6 +4,7 @@ import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import {all, create} from "mathjs";
 import {MATH_MUL_DIV_TOTAL_CARDS} from "./MathChoicer";
+import {shuffle} from "../Common/Utils";
 
 const config = {}
 const math = create(all, config)
@@ -39,9 +40,9 @@ function generateMultiplier(withExclusions) {
     return mul;
 }
 
-function generateMulExpression() {
-    const mul1 = generateMultiplier();
-    const mul2 = generateMultiplier();
+function generateMulExpression(withExclusions) {
+    const mul1 = generateMultiplier(withExclusions);
+    const mul2 = generateMultiplier(withExclusions);
     return {
         mul1,
         mul2,
@@ -64,7 +65,7 @@ function generateExpressions(expressionsCount) {
     // mul
     for (let i = 0; i < half; i++) {
         const exp = generateMathExpressionWithExclusions(true, expressions);
-        console.log('mul exp', exp);
+        // console.log('mul exp', exp);
         expressions = [...expressions, exp.expression];
     }
 
@@ -74,7 +75,7 @@ function generateExpressions(expressionsCount) {
         while (exp.mul1 === 0 && exp.mul2 === 0) {
             exp = generateMathExpressionWithExclusions(false, []);
         }
-        console.log('generated exp', exp);
+        // console.log('generated exp', exp);
 
         const res = math.evaluate(exp.expression);
         let newExpression;
@@ -86,13 +87,13 @@ function generateExpressions(expressionsCount) {
             throw new Error('Can not 0 divide on 0!');
         }
 
-        console.log('new div expression', newExpression);
+        // console.log('new div expression', newExpression);
 
         // TODO avoid repetitions
         expressions = [...expressions, newExpression];
     }
 
-    return expressions;
+    return shuffle(expressions);
 }
 
 const MulDivExpressions = props => {
