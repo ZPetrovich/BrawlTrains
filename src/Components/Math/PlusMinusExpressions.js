@@ -20,20 +20,20 @@ const useStyles = makeStyles({
 });
 
 const DEFAULT_EXPRESSIONS = [
-    '87 - 12',
+    '87 - 38',
     '73 - 17',
     '91 - 18',
-    '23 - 9',
+    '33 - 9',
     '71 - 15',
     '93 - 77',
     '119 + 37',
     '27 + 172',
     '41 - 18',
-    '71 - 39',
+    '71 - 19',
     '33 - 17',
-    '99 - 68',
-    '24 - 19',
-    '77 - 39',
+    '99 - 58',
+    '26 - 19',
+    '77 - 38',
     '125 + 67',
     '121 + 79',
     '37 - 9'
@@ -78,8 +78,8 @@ function PlusMinusExpressions(props) {
     const handleBlur = () => {
         if (answerValue < 0) {
             setAnswerValue(0);
-        } else if (answerValue > 100) {
-            setAnswerValue(100);
+        } else if (answerValue > 1000) {
+            setAnswerValue(1000);
         }
     };
 
@@ -114,7 +114,7 @@ function PlusMinusExpressions(props) {
                         inputProps={{
                             step: 1,
                             min: 0,
-                            max: 100,
+                            max: 1000,
                             type: 'number',
                             'aria-labelledby': 'input-slider',
                         }}
